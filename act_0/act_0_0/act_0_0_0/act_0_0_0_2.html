@@ -152,7 +152,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../../../intro.html">
-                    Donors
+                    Aging
                 </a>
             </li>
         </ul>
@@ -165,7 +165,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../act_0_0_1/act_0_0_1_2.html">Results</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../act_0_1/act_0_1_0/act_0_1_0_1.html">Scenario</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../act_0_1/act_0_1_0/act_0_1_0_2.html">Inferences</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../act_0_1/act_0_1_1/act_0_1_1_1.html">.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../act_0_1/act_0_1_1/act_0_1_1_1.html">WebApps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../act_0_1/act_0_1_1/act_0_1_1_2.html">.</a></li>
 </ul>
 <ul class="nav bd-sidenav">
@@ -325,12 +325,127 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="background">
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;Sensory&quot;</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">2500</span><span class="p">,</span> <span class="mi">700</span><span class="p">))</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;Cognitive&quot;</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">4200</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;Frailty&quot;</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;Muscle&quot;</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">2500</span><span class="p">,</span> <span class="o">-</span><span class="mi">700</span><span class="p">))</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;ADL&quot;</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">1500</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;Outcome&quot;</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">4000</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+<span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="s2">&quot;Sensory&quot;</span><span class="p">,</span> <span class="s2">&quot;Frailty&quot;</span><span class="p">)])</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="s2">&quot;Cognitive&quot;</span><span class="p">,</span> <span class="s2">&quot;Frailty&quot;</span><span class="p">)])</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="s2">&quot;Muscle&quot;</span><span class="p">,</span> <span class="s2">&quot;Frailty&quot;</span><span class="p">)])</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="s2">&quot;Frailty&quot;</span><span class="p">,</span> <span class="s2">&quot;ADL&quot;</span><span class="p">)])</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="s2">&quot;ADL&quot;</span><span class="p">,</span> <span class="s2">&quot;Outcome&quot;</span><span class="p">)])</span>
+
+<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_node_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s1">&#39;pos&#39;</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Frailty&quot;</span><span class="p">:</span> <span class="s2">&quot;Frailty</span><span class="se">\n</span><span class="s2">(Phenotype)&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;Sensory&quot;</span><span class="p">:</span> <span class="s2">&quot;Sensory</span><span class="se">\n</span><span class="s2">(Acuity)&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;Cognitive&quot;</span><span class="p">:</span> <span class="s2">&quot;Cognitive</span><span class="se">\n</span><span class="s2">(Tasks)&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;Muscle&quot;</span><span class="p">:</span> <span class="s2">&quot;Muscle</span><span class="se">\n</span><span class="s2">(Strength)&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;ADL&quot;</span><span class="p">:</span> <span class="s2">&quot;ADL</span><span class="se">\n</span><span class="s2">(Independence)&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;Outcome&quot;</span><span class="p">:</span> <span class="s2">&quot;Outcome</span><span class="se">\n</span><span class="s2">(Phenotype)&quot;</span><span class="p">}</span>  <span class="c1"># Added label for &quot;NDI&quot; node in the labels dictionary</span>
+
+<span class="c1"># Update color for the &quot;Scenarios&quot; node</span>
+<span class="n">node_colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span> <span class="s2">&quot;lavender&quot;</span><span class="p">,</span> <span class="s2">&quot;lightblue&quot;</span><span class="p">,</span> <span class="s2">&quot;lightblue&quot;</span><span class="p">,</span> <span class="s2">&quot;lightblue&quot;</span><span class="p">]</span>
+<span class="c1"># node_colors = [&quot;lightblue&quot;,&quot;lavender&quot;, &quot;lavender&quot;, &quot;lightgreen&quot;, &quot;lightpink&quot;, &quot;lightpink&quot;]</span>
+<span class="c1"># Suppress the deprecation warning</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">node_colors</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span> <span class="c1"># , font_weight=&#39;bold&#39;</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">5000</span><span class="p">,</span> <span class="mi">5000</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/2d6f6ba6c940868ae7a5adae798eb4ffc630db63564e79fe859283bcb756ce6e.png" src="../../../_images/2d6f6ba6c940868ae7a5adae798eb4ffc630db63564e79fe859283bcb756ce6e.png" />
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="background">
 <h1>Background<a class="headerlink" href="#background" title="Permalink to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Aging and disease are associated with decline in <u>functional reserve capacity</u></p></li>
+<li><p>Earliest manifestations are reduced sensory acuity, cognitive decline, and sarcopenia</p></li>
+<li><p>Ultimately these lead to  manifestations of the Physical Frailty Phenotype:</p>
+<ul>
+<li><p>Energy</p>
+<ul>
+<li><p>Self-reported fatigue</p></li>
+<li><p>Low physical activity</p></li>
+</ul>
+</li>
+<li><p>Mass</p>
+<ul>
+<li><p>Unintentional weight loss (Sarcopenia)</p></li>
+<li><p>Weakness (Grip strength)</p></li>
+</ul>
+</li>
+<li><p>Speed</p>
+<ul>
+<li><p>Walking speed over given distance</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Older living kidney donors are healthy, screened individuals</p></li>
+<li><p>Screen would exclude those with above symptoms at baseline</p></li>
+<li><p>However, nephrectomy is a 50% reduction in <u>structural reserve capacity</u> of the renal system</p></li>
+<li><p>Renal system is central to various homeostatic and functional processes:</p>
+<ul>
+<li><p>Phosphate excretion Mineral and bone disorder (CKD-MBD)</p></li>
+<li><p>Susceptibility to bone fractures</p></li>
+<li><p>Vascular calcifiction</p></li>
+<li><p>Cardiovascular disease</p></li>
+<li><p>Systemic hypertension</p></li>
+<li><p>Other extra-renal complications of CKD</p></li>
+<li><p>Decreased clearance of prescribed drugs</p></li>
+<li><p>Vulnerability to delirium</p></li>
+<li><p>Adverse reactions to contrast media following diagnostic procedures</p></li>
+</ul>
+</li>
+<li><p>Incidence of Diabetes and Hypertension</p>
+<ul>
+<li><p>Higher risk with age and after donation</p></li>
+<li><p>Risk factor for kidney disease</p></li>
+<li><p>May sooner reach ESRD because of low eGFR baseline after nephrectomy</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
 <ol class="arabic simple">
-<li><p>Quantify nephrectomy-attributable risk of ESRD and mortality</p></li>
-<li><p>escribe the prevalence of hospitalizations in older donors vs. older nondonors</p></li>
-<li><p>Implement a risk calculator for ESRD, mortality, and sentinel hospitalization in older donors</p></li>
+<li><p>Quantify nephrectomy-attributable risk of ESRD and mortality</p>
+<ul class="simple">
+<li><p>Can accrutely quantify these hard outcomes in older donors over 30 years and at a national level</p></li>
+<li><p>We do so for both donors and nondonors</p></li>
+</ul>
+</li>
+<li><p>Describe the prevalence of hospitalizations in older donors vs. older nondonors</p>
+<ul class="simple">
+<li><p>Upstream of ESRD is CKD and other clinical syndromes that are less robustly captured by national databases</p></li>
+<li><p>Most databases do not capture frailty, its risk factors, and downstream effects on activities of daily living</p></li>
+<li><p>Aging cohort of donors will leave a footprint of present and <code class="docutils literal notranslate"><span class="pre">missing</span></code> data crucial for planning better studies</p></li>
+</ul>
+</li>
+<li><p>Implement a risk calculator for ESRD, mortality, and sentinel hospitalization in older donors</p>
+<ul class="simple">
+<li><p>Seek to make the general public the “end-user”</p></li>
+<li><p>Personalize risk estimation</p></li>
+<li><p>Set to outcomes that matter to older donors</p></li>
+</ul>
+</li>
 </ol>
 </section>
 
